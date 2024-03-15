@@ -11,23 +11,29 @@ import { SearchtitleComponent } from './components/searchtitle/searchtitle.compo
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, CommonModule, SearchtitleComponent, RouterLink, RouterLinkActive],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Movie Finder';
   movieData: IOMDBResponse | undefined;
   errorMessage: any;
 
-  constructor(private _omdbService: OmdbApiService) {}
+  
+  this._omdbService.getMovieData(movieName).subscribe(
+    movieData => {
+      this.movieData = movieData;
+      console.log("Director name : " + this.movieData.Director);
+    }
+  )
 
-  getMovieDetails(movieName: string): boolean {
-    this._omdbService.getMovieData(movieName).subscribe(
-      movieData => {
-        this.movieData = movieData;
-        console.log("Director name : " + this.movieData.Director);
-      }
-    )
-    return false;
-  }
+  this._omdbService.getMovieData(movieName).subscribe(
+    movieData => {
+      this.movieData = movieData;
+      console.log("Director name : " + this.movieData.Director);
+    },
+    error => {
+      this.errorMessage = error;
+      console.log("Error occurred: " + this.errorMessage);
+    }
+  )
 }
+//may work

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IOMDBResponse2 } from '../../omdbmresponse2';
+import { CommonModule } from '@angular/common'; // Typo in import (ComonModule -> CommonModule)
+import { IOMDBResponse2 } from '../../omdbmresponse2'; // Potential import mismatch (assuming you meant IOMDBResponse)
 import { OmdbApiService } from '../../services/omdb-api.service'; // Ensure this path is correct
 
 @Component({
@@ -16,10 +16,12 @@ export class SearchComponent {
   maxPages = 0;
   errorMessage: any;
 
-  constructor(private _omdbService: OmdbApiService) {}
+  constructor(private _omdbService: OmdbApiService) { }
 
-  getMovieDetails(movieName: string): boolean {
-    this._omdbService.getMoviesData(movieName, this.currentPage).subscribe(
+  getMovieDetails(movieName: string): boolean { 
+
+
+    this._omdbService.getMovieData(movieName, this.currentPage).subscribe( 
       movieData => {
         this.movieData = movieData;
       },
@@ -30,14 +32,15 @@ export class SearchComponent {
 
   getNextPage(movieName: string): boolean {
     this.currentPage++;
-    this.getMovieDetails(movieName); 
+    this.getMovieDetails(movieName);
     return false;
   }
 
-  getPreviousPage(movieName: string): boolean {
+  getPreviousPage(movieName: string): boolean { 
     this.currentPage--;
-    if (this.currentPage < 1) this.currentPage = 1;
-    this.getMovieDetails(movieName); 
+    if (this.currentPage < 1) {
+      this.currentPage = 1; 
+    this.getMovieDetails(movieName);
     return false;
   }
 }
